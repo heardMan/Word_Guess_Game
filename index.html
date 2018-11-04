@@ -26,19 +26,44 @@
                   <a class="nav-link" href="#">Rules</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reset</a>
+                    <button class="nav-button" onclick="newGame()">Reset</button>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Game Mode
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                              Easy
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Normal
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Hard
+                            </label>
+                          </div>
+                    </div>
                   </li>
               </ul>
             </div>
           </nav>
           <div class="row">
               <div class="col">
-                  <p>Press Any Key To Get Started</p>
-                  <p>Wins</p>
-                  <p>_ _ _ _ _ _</p>
-                  <p>Guesses Remaining: 5</p>
-                  <p>Already guessed letters: Q, W, Z, T</p>
-
+                  <p id="start-game">Press Any Key To Get Started</p>
+                  <p>Wins: <span id="wins"></span></p>
+                  <p>Word: <span id="wordX"></span></p>
+                  <p>Guesses Remaining: <span id="guesses"></span></p>
+                  <p>Already Guessed Letters: <span id="letter-bank"></span></p>
+                  
               </div>
           </div>
     </div>
