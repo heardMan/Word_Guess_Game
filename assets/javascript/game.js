@@ -42,6 +42,7 @@ var clearWord = function () {
     wordBlanks = [];
     chosenWord = "";
     userInput = [];
+    letterBankElem.textContent = userInput;
 }
 
 // chooseWord: selects word from the wordBank array
@@ -54,10 +55,11 @@ var chooseWord = function () {
 }
 
 // printArrayNoCommas prints the wordBlanks Array without any commas and updates the page element
-var printArrayNoCommas = function () {
-    var wordBlankString = wordBlanks.toString();
-    var spacesNowCommas = wordBlankString.replace(/,/g," ");
-    wordXElem.textContent = spacesNowCommas;
+var printArrayNoCommas = function (arr, elem) {
+    var arrToString = arr.toString();
+    var spacesNowCommas = arrToString.replace(/,/g," ");
+    elem.textContent = spacesNowCommas;
+    setTimeout(checkWin, 200);
 }
 
 // setBlanks: outputs the correct number of blanks to the wordX element based on the word chosen
@@ -67,7 +69,7 @@ var setBlanks = function () {
         wordBlanks.push(" _ ");
     }
 
-    printArrayNoCommas();
+    printArrayNoCommas(wordBlanks, wordXElem);
     
 }
 
@@ -115,6 +117,9 @@ var guessAssess = function (keyLimit, keyPressed) {
 var guessWrong = function (keyPressed) {
         userInput.push(keyPressed);
         guesses --;
+        //letterBankElem.textContent = userInput;
+        printArrayNoCommas(userInput, letterBankElem);
+        setTimeout(checkLoss, 250);
 }
 
 // guessRight: manages user input if guess is correct
@@ -132,12 +137,13 @@ var guessRight = function (keyPressed) {
             var letterToReplace =  chosenWord[rightindices[i]];
             //console.log(replaceIndex);
             //console.log(letterToReplace);
-            wordBlanks[replaceIndex] = letterToReplace;
-            console.log(wordBlanks);
+            wordBlanks[replaceIndex] = "  " + letterToReplace + "  ";
+            //console.log(wordBlanks);
             
         }
         guesses --;
-        printArrayNoCommas();
+        printArrayNoCommas(wordBlanks, wordXElem);
+        
     
 }
 
@@ -146,8 +152,8 @@ var checkWin = function () {
     var wordBlankString = wordBlanks.toString();
     var wordBlankCheck = wordBlankString.match(/_/);
     if ( wordBlankCheck === null) {
-        alert("WINNER!!!");
         newGame();
+        alert("WINNER!!!");
         wins ++;
         winsElem.textContent = wins;
     }
@@ -155,7 +161,7 @@ var checkWin = function () {
 
 //checkLoss
 var checkLoss = function () {
-    if ( guesses === -1 ) {
+    if ( guesses === 0 ) {
         alert("LOSER!!!");
         newGame();
     }
@@ -179,9 +185,9 @@ document.onkeydown = function (e) {
     
     
     guessesElem.textContent = guesses;
-    letterBankElem.textContent = userInput;
+    
 
-    checkLoss();
-    checkWin();
+    
+    
     
 }
