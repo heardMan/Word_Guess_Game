@@ -8,6 +8,8 @@ var letterBankElem = document.getElementById("letter-bank");
 var easyDifficulty = document.getElementById("exampleRadios1");
 var normalDiffculty = document.getElementById("exampleRadios2");
 var hardDifficulty = document.getElementById("exampleRadios3");
+var pokemon = document.getElementById("pokemon"); 
+
 var wins = 0;
 var guesses;
 var wordBlanks = [];
@@ -15,12 +17,14 @@ var chosenWord = "";
 var userInput = [];
 var alreadyGuessed =[];
 var wordBank = [
-    "giraffe",
-    "lion",
-    "antelope",
-    "elephant",
-    "finch"
+    "bulbasaur",
+    "charizard",
+    "charmander",
+    "pikachu",
+    //"squirtle"
 ]
+
+
 
 //FUNCTION SETUP
 
@@ -73,12 +77,19 @@ var setBlanks = function () {
     
 }
 
+//setImg
+
+var setImg = function () {
+    pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+"Sil.svg"
+}
+
 // newGame: 
 var newGame = function () {
     setGuesses();
     clearWord();
     chooseWord();
     setBlanks();
+    setImg();
     guessesElem.textContent = guesses;
 }
 
@@ -147,26 +158,85 @@ var guessRight = function (keyPressed) {
     
 }
 
+var win = function () {
+    alert("WINNER!!!");
+        wins ++;
+        winsElem.textContent = wins;
+        newGame();
+}
+
 //checkWin
 var checkWin = function () {
     var wordBlankString = wordBlanks.toString();
     var wordBlankCheck = wordBlankString.match(/_/);
     if ( wordBlankCheck === null) {
-        newGame();
-        alert("WINNER!!!");
-        wins ++;
-        winsElem.textContent = wins;
+        pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
+        setTimeout(win, 500);
+        
+        
     }
+}
+
+var loss = function() {
+    alert("LOSER!!!");
+        newGame();
 }
 
 //checkLoss
 var checkLoss = function () {
-    if ( guesses === 0 ) {
-        alert("LOSER!!!");
-        newGame();
+    if ( guesses <= 0 ) {
+        pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
+        setTimeout(loss, 500);
+        //alert("LOSER!!!");
+        //newGame();
     }
 }
 
+//set win photo
+/*
+var setWinPhoto = function () {
+    switch(chosenWord) {
+        case "giraffe":
+            winPhoto = "./assets/images/giraffe.jpg";
+            break;
+        case "lion":
+            winPhoto = "./assets/images/lion.jpg";
+            break;
+        case "antelope":
+            winPhoto = "./assets/images/antelope.jpg";
+            break;
+        case "elephant":
+            winPhoto = "./assets/images/elephant.jpg";
+            break;
+        case "finch":
+            winPhoto = "./assets/images/finch.jpg";
+        default:
+            code block
+    }
+}
+
+//set hint 
+var setHint = function () {
+    switch(chosenWord) {
+        case "giraffe":
+            winPhoto = "";
+            break;
+        case "lion":
+            winPhoto = "";
+            break;
+        case "antelope":
+            winPhoto = "";
+            break;
+        case "elephant":
+            winPhoto = "";
+            break;
+        case "finch":
+            winPhoto = "";
+        default:
+            code block
+    }
+
+*/
 //Listen for userInput
 
 
@@ -180,14 +250,7 @@ document.onkeydown = function (e) {
     var keyStroke = rawkeyStroke.toLowerCase();
     var patt1 = /[a-z]/i;
     var keyRange = keyStroke.match(patt1);
-
     guessAssess(keyRange, keyStroke);
-    
-    
     guessesElem.textContent = guesses;
-    
-
-    
-    
     
 }

@@ -7,32 +7,28 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Word Guess Game</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Black+And+White+Picture|Roboto" rel="stylesheet">
+    <title>Who's That Pokemon</title>
   </head>
   <body>
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Word Guess Game</a>
+            <a class="navbar-brand" href="#">Who's That Pokemon</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Game<span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Rules</a>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-button" onclick="newGame()">Reset</button>
+                    <button class="bg-light py-2 border-0" onclick="newGame()">Reset</button>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Game Mode
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu mr-3 px-4 bg-light" aria-labelledby="navbarDropdownMenuLink">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                             <label class="form-check-label" for="exampleRadios1">
@@ -57,10 +53,14 @@
             </div>
           </nav>
           <div class="row">
-              <div class="col">
+              <div class="col-sm-12 col-md-8">
+                  <img src="./assets/images/background/pokemonBackground.svg" alt="" class="img-fluid whoDat">
+                <img src="#" alt="" id="pokemon" class="img-fluid p-2 pokemon">
+              </div>
+              <div class="col text-center mt-3">
                   <p id="start-game">Press Any Key To Get Started</p>
                   <p>Wins: <span id="wins"></span></p>
-                  <p>Word: <span id="wordX"></span></p>
+                  <p>Word: <span id="wordX"></sm-autopan></p>
                   <p>Guesses Remaining: <span id="guesses"></span></p>
                   <p>Already Guessed Letters: <span id="letter-bank"></span></p>
                   
