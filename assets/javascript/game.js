@@ -21,7 +21,7 @@ var wordBank = [
     "charizard",
     "charmander",
     "pikachu",
-    //"squirtle"
+    "squirtle"
 ]
 
 
