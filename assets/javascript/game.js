@@ -9,7 +9,7 @@ var easyDifficulty = document.getElementById("exampleRadios1");
 var normalDiffculty = document.getElementById("exampleRadios2");
 var hardDifficulty = document.getElementById("exampleRadios3");
 var pokemon = document.getElementById("pokemon"); 
-
+var audioElement = document.createElement("audio");
 var wins = 0;
 var guesses;
 var wordBlanks = [];
@@ -24,19 +24,17 @@ var wordBank = [
     "squirtle"
 ]
 
-
-
 //FUNCTION SETUP
 
 //setGuesses
 var setGuesses = function () {
     
     if ( easyDifficulty.checked ) {
-        guesses = 20;
+        guesses = 12;
     } else if ( normalDiffculty.checked ) {
-        guesses = 15;
-    } else if (hardDifficulty.checked ) {
         guesses = 10;
+    } else if (hardDifficulty.checked ) {
+        guesses = 8;
     }
     
 }
@@ -130,7 +128,7 @@ var guessWrong = function (keyPressed) {
         guesses --;
         //letterBankElem.textContent = userInput;
         printArrayNoCommas(userInput, letterBankElem);
-        setTimeout(checkLoss, 250);
+        setTimeout(checkLoss, 100);
 }
 
 // guessRight: manages user input if guess is correct
@@ -158,6 +156,11 @@ var guessRight = function (keyPressed) {
     
 }
 
+var revealNoise = function () {
+    audioElement.setAttribute("src", "assets/captainplanet24.mp3");
+    audioElement.play();
+}
+
 var win = function () {
     alert("WINNER!!!");
         wins ++;
@@ -171,7 +174,7 @@ var checkWin = function () {
     var wordBlankCheck = wordBlankString.match(/_/);
     if ( wordBlankCheck === null) {
         pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
-        setTimeout(win, 500);
+        setTimeout(win, 100);
         
         
     }
@@ -186,7 +189,7 @@ var loss = function() {
 var checkLoss = function () {
     if ( guesses <= 0 ) {
         pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
-        setTimeout(loss, 500);
+        setTimeout(loss, 100);
         //alert("LOSER!!!");
         //newGame();
     }
