@@ -8,14 +8,14 @@ var letterBankElem = document.getElementById("letter-bank");
 var easyDifficulty = document.getElementById("exampleRadios1");
 var normalDiffculty = document.getElementById("exampleRadios2");
 var hardDifficulty = document.getElementById("exampleRadios3");
-var pokemon = document.getElementById("pokemon"); 
+var pokemon = document.getElementById("pokemon");
 var audioElement = document.createElement("audio");
 var wins = 0;
 var guesses;
 var wordBlanks = [];
 var chosenWord = "";
 var userInput = [];
-var alreadyGuessed =[];
+var alreadyGuessed = [];
 var wordBank = [
     "bulbasaur",
     "charizard",
@@ -28,15 +28,15 @@ var wordBank = [
 
 //setGuesses
 var setGuesses = function () {
-    
-    if ( easyDifficulty.checked ) {
-        guesses = 12;
-    } else if ( normalDiffculty.checked ) {
-        guesses = 10;
-    } else if (hardDifficulty.checked ) {
-        guesses = 8;
+
+    if (easyDifficulty.checked) {
+        guesses = chosenWord.length + 4;
+    } else if (normalDiffculty.checked) {
+        guesses = chosenWord.length + 2;
+    } else if (hardDifficulty.checked) {
+        guesses = chosenWord.length;
     }
-    
+
 }
 
 //clearWord: clears old word
@@ -59,101 +59,102 @@ var chooseWord = function () {
 // printArrayNoCommas prints the wordBlanks Array without any commas and updates the page element
 var printArrayNoCommas = function (arr, elem) {
     var arrToString = arr.toString();
-    var spacesNowCommas = arrToString.replace(/,/g," ");
+    var spacesNowCommas = arrToString.replace(/,/g, " ");
     elem.textContent = spacesNowCommas;
     setTimeout(checkWin, 200);
 }
 
 // setBlanks: outputs the correct number of blanks to the wordX element based on the word chosen
 var setBlanks = function () {
-    
-    for (var i = 0; i < chosenWord.length; i++){ 
+
+    for (var i = 0; i < chosenWord.length; i++) {
         wordBlanks.push(" _ ");
     }
 
     printArrayNoCommas(wordBlanks, wordXElem);
-    
+
 }
 
 //setImg
 
 var setImg = function () {
-    pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+"Sil.svg"
+    pokemon.src = "./assets/images/" + chosenWord + "/" + chosenWord + "Sil.svg"
 }
 
 // newGame: 
 var newGame = function () {
-    setGuesses();
+    
     clearWord();
     chooseWord();
     setBlanks();
     setImg();
+    setGuesses();
     guessesElem.textContent = guesses;
 }
 
 //guessAsses: "sanitizes" user input and outputs appropriate response
 var guessAssess = function (keyLimit, keyPressed) {
-   
 
-    if (keyPressed !== "shift" && keyPressed !== "meta" && keyPressed !== "backspace" && keyPressed !== " " && keyPressed !== "enter") {      
-       
+
+    if (keyPressed !== "shift" && keyPressed !== "meta" && keyPressed !== "backspace" && keyPressed !== " " && keyPressed !== "enter") {
+
         var wordBlankString = wordBlanks.toString();
         var userInputString = userInput.toString();
         var wordBlankCheck = wordBlankString.match(keyPressed);
         var userInputCheck = userInputString.match(keyPressed);
 
-        if ( wordBlankCheck === null && userInputCheck === null) {
-            
+        if (wordBlankCheck === null && userInputCheck === null) {
+
             var rightCheck = chosenWord.match(keyPressed);
             console.log(rightCheck);
-            
-            if ( rightCheck !== null ) {
+
+            if (rightCheck !== null) {
                 guessRight(keyPressed);
             } else {
                 guessWrong(keyPressed);
             }
-            
-        } else {
 
-            alert("Letter already guessed");
+        } else {
+            repeatModal();
+            //alert("Letter already guessed");
 
         }
-        
+
     }
 }
 
 // guessWrong: manages user input if guess is wrong
 var guessWrong = function (keyPressed) {
-        userInput.push(keyPressed);
-        guesses --;
-        //letterBankElem.textContent = userInput;
-        printArrayNoCommas(userInput, letterBankElem);
-        setTimeout(checkLoss, 100);
+    userInput.push(keyPressed);
+    guesses--;
+    //letterBankElem.textContent = userInput;
+    printArrayNoCommas(userInput, letterBankElem);
+    setTimeout(checkLoss, 100);
 }
 
 // guessRight: manages user input if guess is correct
 var guessRight = function (keyPressed) {
-        
-        var rightindices = [];
-        for ( var i = 0; i < chosenWord.length; i++) {
-            if ( keyPressed === chosenWord[i] ) {
-                rightindices.push(i);
-            }
-        }
 
-        for ( var i = 0; i < rightindices.length; i++) {
-            var replaceIndex = rightindices[i];
-            var letterToReplace =  chosenWord[rightindices[i]];
-            //console.log(replaceIndex);
-            //console.log(letterToReplace);
-            wordBlanks[replaceIndex] = "  " + letterToReplace + "  ";
-            //console.log(wordBlanks);
-            
+    var rightindices = [];
+    for (var i = 0; i < chosenWord.length; i++) {
+        if (keyPressed === chosenWord[i]) {
+            rightindices.push(i);
         }
-        guesses --;
-        printArrayNoCommas(wordBlanks, wordXElem);
-        
-    
+    }
+
+    for (var i = 0; i < rightindices.length; i++) {
+        var replaceIndex = rightindices[i];
+        var letterToReplace = chosenWord[rightindices[i]];
+        //console.log(replaceIndex);
+        //console.log(letterToReplace);
+        wordBlanks[replaceIndex] = "  " + letterToReplace + "  ";
+        //console.log(wordBlanks);
+
+    }
+    guesses--;
+    printArrayNoCommas(wordBlanks, wordXElem);
+
+
 }
 
 var revealNoise = function () {
@@ -161,99 +162,121 @@ var revealNoise = function () {
     audioElement.play();
 }
 
-var win = function () {
-    alert("WINNER!!!");
-        wins ++;
-        winsElem.textContent = wins;
+var winModal = function(){
+
+    var newGameBtn = `<button id="newGameBtn" type="button" class="btn btn-primary">Play Again</button>`;
+    var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
+
+    $("#modal-title").text("YOU WIN!!!");
+    $("#modal-body").html(`It was ${chosenWord}`);
+    $("#modal-footer").empty();
+    $("#modal-footer").append(newGameBtn + quitBtn);
+
+    $("#newGameBtn").click( e =>{
+        e.preventDefault();
         newGame();
+        $("#modal").modal("hide");
+    });
+
+    $("#quitBtn").click( e =>{
+        e.preventDefault();
+        
+    });
+
+    $("#modal").modal("show");
+}
+
+var loseModal = function(){
+
+    var newGameBtn = `<button id="newGameBtn" type="button" class="btn btn-primary">Play Again</button>`;
+    var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
+
+    $("#modal-title").text("YOU LOSE!!!");
+    $("#modal-body").html(`It was ${chosenWord}`);
+    $("#modal-footer").empty();
+    $("#modal-footer").append(newGameBtn + quitBtn);
+
+    $("#newGameBtn").click( e =>{
+        e.preventDefault();
+        newGame();
+        $("#modal").modal("hide");
+    });
+
+    $("#quitBtn").click( e =>{
+        e.preventDefault();
+        
+    });
+
+    $("#modal").modal("show");
+}
+
+var repeatModal = function(){
+
+    var okBtn = `<button id="okBtn" type="button" class="btn btn-primary">OK</button>`;
+    
+    $("#modal-title").text("Already Guessed");
+    $("#modal-body").html(`You have already guessed this letter, try another...`);
+    $("#modal-footer").empty();
+    $("#modal-footer").append(okBtn);
+
+    $("#modal").modal("show");
+    $("#okBtn").click(function(e){
+        e.preventDefault();
+        $("#modal").modal("hide");
+    })
+}
+
+var win = function () {
+    //alert("WINNER!!!");
+    winModal();
+    wins++;
+    winsElem.textContent = wins;
+    
 }
 
 //checkWin
 var checkWin = function () {
     var wordBlankString = wordBlanks.toString();
     var wordBlankCheck = wordBlankString.match(/_/);
-    if ( wordBlankCheck === null) {
-        pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
+    if (wordBlankCheck === null) {
+        pokemon.src = "./assets/images/" + chosenWord + "/" + chosenWord + ".svg";
         setTimeout(win, 100);
-        
-        
+
+
     }
 }
 
-var loss = function() {
-    alert("LOSER!!!");
-        newGame();
+var loss = function () {
+    loseModal();
 }
 
 //checkLoss
 var checkLoss = function () {
-    if ( guesses <= 0 ) {
-        pokemon.src="./assets/images/"+chosenWord+"/"+chosenWord+".svg";
+    if (guesses <= 0) {
+        pokemon.src = "./assets/images/" + chosenWord + "/" + chosenWord + ".svg";
         setTimeout(loss, 100);
         //alert("LOSER!!!");
         //newGame();
     }
 }
 
-//set win photo
-/*
-var setWinPhoto = function () {
-    switch(chosenWord) {
-        case "giraffe":
-            winPhoto = "./assets/images/giraffe.jpg";
-            break;
-        case "lion":
-            winPhoto = "./assets/images/lion.jpg";
-            break;
-        case "antelope":
-            winPhoto = "./assets/images/antelope.jpg";
-            break;
-        case "elephant":
-            winPhoto = "./assets/images/elephant.jpg";
-            break;
-        case "finch":
-            winPhoto = "./assets/images/finch.jpg";
-        default:
-            code block
-    }
-}
-
-//set hint 
-var setHint = function () {
-    switch(chosenWord) {
-        case "giraffe":
-            winPhoto = "";
-            break;
-        case "lion":
-            winPhoto = "";
-            break;
-        case "antelope":
-            winPhoto = "";
-            break;
-        case "elephant":
-            winPhoto = "";
-            break;
-        case "finch":
-            winPhoto = "";
-        default:
-            code block
-    }
-
-*/
-//Listen for userInput
 
 
 
 winsElem.textContent = wins;
 newGame();
 
+document.addEventListener("keydown", keylisten);
 
-document.onkeydown = function (e) {
+
+function keylisten(e) {
     var rawkeyStroke = e.key;
     var keyStroke = rawkeyStroke.toLowerCase();
     var patt1 = /[a-z]/i;
     var keyRange = keyStroke.match(patt1);
     guessAssess(keyRange, keyStroke);
     guessesElem.textContent = guesses;
-    
+
 }
+
+
