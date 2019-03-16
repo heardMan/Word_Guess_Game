@@ -163,7 +163,7 @@ var revealNoise = function () {
 }
 
 var winModal = function(){
-
+    document.removeEventListener("keydown", keylisten);
     var newGameBtn = `<button id="newGameBtn" type="button" class="btn btn-primary">Play Again</button>`;
     var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
 
@@ -175,6 +175,7 @@ var winModal = function(){
     $("#newGameBtn").click( e =>{
         e.preventDefault();
         newGame();
+
         $("#modal").modal("hide");
     });
 
@@ -187,7 +188,7 @@ var winModal = function(){
 }
 
 var loseModal = function(){
-
+    document.removeEventListener("keydown", keylisten);
     var newGameBtn = `<button id="newGameBtn" type="button" class="btn btn-primary">Play Again</button>`;
     var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
 
@@ -200,6 +201,7 @@ var loseModal = function(){
         e.preventDefault();
         newGame();
         $("#modal").modal("hide");
+        document.addEventListener("keydown", keylisten);
     });
 
     $("#quitBtn").click( e =>{
@@ -211,7 +213,7 @@ var loseModal = function(){
 }
 
 var repeatModal = function(){
-
+    document.removeEventListener("keydown", keylisten);
     var okBtn = `<button id="okBtn" type="button" class="btn btn-primary">OK</button>`;
     
     $("#modal-title").text("Already Guessed");
@@ -220,9 +222,11 @@ var repeatModal = function(){
     $("#modal-footer").append(okBtn);
 
     $("#modal").modal("show");
+
     $("#okBtn").click(function(e){
         e.preventDefault();
         $("#modal").modal("hide");
+        document.addEventListener("keydown", keylisten);
     })
 }
 
