@@ -5,6 +5,16 @@ body, html {
     background: #e8e8e8;
 }
 
+.nav-bg {
+    background: #d91e18;
+}
+
+.card-bg {
+    background: #59abe3;
+    font-size: 1.25em;
+
+}
+
 .whoDat {
     position: relative;
     width: 100%;
@@ -19,10 +29,10 @@ body, html {
 }
 
 .shadow {
-    box-shadow: 15px 15px 15px #888888;
+    box-shadow: 15px 15px 15px #2e3131;
 }
 
 .nav-shadow {
-    box-shadow: 0px 15px 15px #888888;
+    box-shadow: 0px 15px 15px #2e3131;
 }
 

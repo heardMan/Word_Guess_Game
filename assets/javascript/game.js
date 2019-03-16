@@ -90,6 +90,7 @@ var newGame = function () {
     setImg();
     setGuesses();
     guessesElem.textContent = guesses;
+    document.addEventListener("keydown", keylisten);
 }
 
 //guessAsses: "sanitizes" user input and outputs appropriate response
@@ -168,7 +169,7 @@ var winModal = function(){
     var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
 
     $("#modal-title").text("YOU WIN!!!");
-    $("#modal-body").html(`It was ${chosenWord}`);
+    $("#modal-body").html(`It's ${chosenWord}!`);
     $("#modal-footer").empty();
     $("#modal-footer").append(newGameBtn + quitBtn);
 
@@ -193,7 +194,7 @@ var loseModal = function(){
     var quitBtn = `<button id="quitBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>`;
 
     $("#modal-title").text("YOU LOSE!!!");
-    $("#modal-body").html(`It was ${chosenWord}`);
+    $("#modal-body").html(`It's ${chosenWord}!`);
     $("#modal-footer").empty();
     $("#modal-footer").append(newGameBtn + quitBtn);
 
@@ -270,7 +271,7 @@ var checkLoss = function () {
 winsElem.textContent = wins;
 newGame();
 
-document.addEventListener("keydown", keylisten);
+
 
 
 function keylisten(e) {
