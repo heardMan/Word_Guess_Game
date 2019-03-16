@@ -1,11 +1,13 @@
 body, html {
     height: 100%;
     font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
 }
 
 .whoDat {
     position: relative;
     width: 100%;
+
 }
 
 .pokemon {
