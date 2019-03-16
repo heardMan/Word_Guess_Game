@@ -11,26 +11,26 @@ body, html {
 }
 
 @keyframes grow {
-    0%   {margin-top: -500px;}
-    5%  {margin-top: -475px;}
-    10%  {margin-top: -450px;}
-    15%  {margin-top: -425px;}
-    20%  {margin-top: -400px;}
-    25%  {margin-top: -375px;}
-    30%  {margin-top: -350px;}
-    35%  {margin-top: -325px;}
-    40% {margin-top: -300px;}
-    45% {margin-top: -275px;}
-    50% {margin-top: -250px;}
-    55% {margin-top: -225px;}
-    60% {margin-top: -200px;}
-    65% {margin-top: -175px;}
-    70% {margin-top: -150px;}
-    75% {margin-top: -125px;}
-    80% {margin-top: -100px;}
-    85% {margin-top: -75px;}
-    90% {margin-top: -50px;}
-    95% {margin-top: -25px;}
+    0%   {margin-top: -400px;}
+    5%  {margin-top: -380px;}
+    10%  {margin-top: -360px;}
+    15%  {margin-top: -340px;}
+    20%  {margin-top: -320px;}
+    25%  {margin-top: -300px;}
+    30%  {margin-top: -280px;}
+    35%  {margin-top: -260px;}
+    40% {margin-top: -240px;}
+    45% {margin-top: -220px;}
+    50% {margin-top: -200px;}
+    55% {margin-top: -180px;}
+    60% {margin-top: -160px;}
+    65% {margin-top: -140px;}
+    70% {margin-top: -120px;}
+    75% {margin-top: -100px;}
+    80% {margin-top: -80px;}
+    85% {margin-top: -60px;}
+    90% {margin-top: -40px;}
+    95% {margin-top: -20px;}
     100% {margin-top: 0px;}
   }
 
